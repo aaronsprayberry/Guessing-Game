@@ -4,6 +4,7 @@ const resetButton = document.querySelector ("#reset");
 const hintButton = document.querySelector ("#hint");
 const correctAnswer = Math.floor(Math.random() * 100)+1;
 const guessList = document.querySelector ("ul");
+const hintMessage = document.querySelector("#hintmessage");
 let remainderGuesses = 5;
 const returnMessage = document.querySelector ("#returnmessage");
 
@@ -22,16 +23,22 @@ if (guess === correctAnswer){
     returnMessage.textContent = "You win!";
     enterButton.disabled = true;
     textField.disabled = true;
-  }  else if (isNaN(guess) || guess<1 || guess>100){
+  } else if (isNaN(guess) || guess<1 || guess>100){
     returnMessage.textContent = "Enter a valid number between 1 and 100";
   } else {
     remainderGuesses--;
     returnMessage.textContent = `Attempts remaining: ${remainderGuesses}`
-} if (remainderGuesses === 0){
-    returnMessage.textContent ='Game Over!';
-    textField.disabled = true;
-    enterButton.disabled = true;
-    
-}
-
+    } if (remainderGuesses === 0){
+        returnMessage.textContent ='Game Over!';
+        textField.disabled = true;
+        enterButton.disabled = true;    
+        } else {
+            if (guess < correctAnswer) {
+                hintMessage.textContent = 'Try going higher.';
+            } else if (guess > correctAnswer) {
+                hintMessage.textContent = 'Try going lower.';
+            } else {
+                hintMessage.textContent = '';
+        }
+    }
 })
